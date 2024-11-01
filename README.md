@@ -1,45 +1,34 @@
-# Page Rank
-## Mineria de Dades
+# PageRank Implementation
+Data Mining Project
 
----
-
-Aquesta pràctica té com a objectiu implementar i analitzar l'algorisme de PageRank. PageRank és una mètrica desenvolupada pels fundadors de Google, Larry Page i Sergey Brin, que permet classificar pàgines web basant-se en la quantitat i qualitat dels enllaços que les apunten. En aquesta implementació, s'ha donat un esquelet de codi per computar el PageRank, i l'usuari ha d'implementar l'algorisme segons les indicacions donades.
-
+This project aims to implement and analyze the PageRank algorithm. PageRank is a metric developed by Google founders Larry Page and Sergey Brin that ranks web pages based on the quantity and quality of links pointing to them. In this implementation, a code skeleton has been provided to compute PageRank, and users must implement the algorithm according to the given instructions.
 
 ## Datasets
-El conjunt de dades proporcionat amb la pràctica es denomina gr0.California i conté un graph de totes les webs relacionades amb la cerca "California". El format del dataset és el següent:
+The dataset provided with the project is called `gr0.California` and contains a graph of all websites related to the "California" search query. The dataset format is as follows:
 
-* Línies que comencen amb n: Defineixen un node del graph. Exemple: n ID URL on ID és un identificador únic per al node i URL és l'URL de la pàgina web.
-* Línies que comencen amb e: Defineixen una aresta del graph. Exemple: e IDFROM IDTO on IDFROM és l'identificador de la pàgina d'origen i IDTO és l'identificador de la pàgina de destinació.
+* Lines starting with `n`: Define a node in the graph. Example: `n ID URL` where ID is a unique identifier for the node and URL is the webpage URL.
+* Lines starting with `e`: Define an edge in the graph. Example: `e IDFROM IDTO` where IDFROM is the identifier of the source page and IDTO is the identifier of the destination page.
 
-
-## Exemple d'Execució
-
-Per executar el programa amb el conjunt de dades proporcionat, fes servir la següent comanda:
+## Example Execution
+To run the program with the provided dataset, use the following command:
 
 ```bash
 python3 pagerank.py gr0.California.txt [--beta 0.85]
 ```
 
-On beta és el paràmetre de damping. El valor per defecte (en el cas de no ser proporcionat) és 0.85.
+Where beta is the damping parameter. The default value (if not provided) is 0.85.
 
-Després d'executar el programa, s'imprimirà la llista de pàgines web ordenades segons el seu PageRank. També es mostrarà el temps que ha trigat l'algorisme a convergir.
+After executing the program, it will print the list of web pages ordered by their PageRank. It will also show the time taken for the algorithm to converge.
 
+## Results Analysis
+The implemented PageRank algorithm provides fast and accurate results, with surprisingly quick convergence for a dataset of 10,000 web pages, requiring less than 0.03 seconds to reach a solution. This efficiency highlights not only the power of the PageRank algorithm but also the quality of the implementation.
 
-## Anàlisi de Resultats
-L'algorisme de PageRank implementat proporciona resultats ràpids i precisos, amb una convergència sorprenentment ràpida per un conjunt de dades de 10,000 pàgines web, requerint menys de 0.03 segons per arribar a una solució. Aquesta eficiència no només destaca la potència de l'algorisme de PageRank, sinó també la qualitat de l'implementació.
+One of the central parameters of the PageRank algorithm is the damping factor, β. This parameter, which takes values between 0 and 1, represents the probability that a user continues following links within a webpage, rather than jumping to a random page. In fact, (1-β) is the probability that the user makes this random "jump".
 
-Un dels paràmetres centrals de l'algorisme de PageRank és el factor de amortiment, β. Aquest paràmetre, que pren valors entre 0 i 1, representa la probabilitat que un usuari continuï seguint enllaços dins d'una pàgina web, en lloc de saltar a una pàgina aleatòria. De fet, (1-β) és la probabilitat que l'usuari faci aquest "salt" aleatori.
+In our implementation, β can be adjusted to see how it affects the final PageRank results. Key points about β include:
 
-En la nostra implementació, β pot ser ajustat per veure com afecta els resultats finals de PageRank. Alguns punts clau sobre β són:
+* Influence on Convergence: A higher β value can make the algorithm take longer to converge. This is because with a high β, the algorithm gives more weight to existing links, making PageRank scores distribute more slowly.
+* Relevance vs. Randomness: With a high β, PageRank results are more influenced by existing links in the dataset, resulting in scores more based on web "reputation". Conversely, with a lower β, there's a higher probability of jumping to random pages, which can cause pages with fewer incoming links to obtain higher PageRank scores.
+* Extreme Values: With β = 1, the user will always follow links and never make random jumps, which may not be realistic. With β = 0, the user will always jump randomly, completely ignoring the web's link structure.
 
-* Influència en la Convergència: Un valor més alt de β pot fer que l'algorisme trigui més a convergir. Això es deu al fet que amb un β elevat, l'algorisme dóna més pes als enllaços existents, fent que les puntuacions de PageRank es distribueixin més lentament.
-* Relevància vs. Aleatorietat: Amb un β elevat, els resultats de PageRank estan més influenciats pels enllaços existents del conjunt de dades, donant lloc a puntuacions més basades en la "reputació" del web. En canvi, amb un β més baix, hi ha una major probabilitat de saltar a pàgines aleatòries, el que pot fer que pàgines amb menys enllaços entrants obtinguin puntuacions més altes de PageRank.
-* Valors Extrems: Amb β = 1, l'usuari sempre seguirà enllaços i mai no farà salts aleatoris, el que pot no ser realista. Amb β = 0, l'usuari sempre saltarà aleatòriament, ignorant completament la estructura d'enllaços del web.
-
-Després d'analitzar diversos valors de β, és clar que la selecció apropiada d'aquest paràmetre pot tenir un impacte significatiu en la interpretació i aplicació dels resultats de PageRank. La tria d'un valor de β adequat és essencial per assegurar-se que el ranking produït per PageRank reflecteixi de manera precisa la importància i relevància real de les pàgines web. En general, un valor de β entre 0.8 i 0.9 produeix resultats satisfactoris.
-
-<br>
-
-### Autor
-Biel Carpi (biel.carpi@students.salle.url.edu)
+After analyzing various β values, it's clear that the appropriate selection of this parameter can have a significant impact on the interpretation and application of PageRank results. Choosing a suitable β value is essential to ensure that the ranking produced by PageRank accurately reflects the real importance and relevance of web pages. Generally, a β value between 0.8 and 0.9 produces satisfactory results.
